@@ -1,0 +1,26 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fin-lab-app
+  labels:
+    app: fin-lab-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fin-lab-app
+  template:
+    metadata:
+      labels:
+        app: fin-lab-app
+    spec:
+      containers:
+      - name: app
+        image: yuriysherbakov/fin-lab:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
